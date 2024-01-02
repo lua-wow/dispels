@@ -1,4 +1,4 @@
-## Interface: 20504
+## Interface: 30403
 ## Author: Luaerror
 ## Version: 1.0.0
 ## Title: |cffb3ff19Dispels|r
