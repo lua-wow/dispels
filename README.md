@@ -1,3 +1,3 @@
 # Dispels
 
-World of Warcraft addon announce when a debuff is dispelled.
+World of Warcraft addon to announce when a debuff is dispelled or buff is stole.
