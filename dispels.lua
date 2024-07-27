@@ -276,6 +276,10 @@ do
 
         -- Brackenhide Hollow
         spells[2520] = {
+            -- Trash
+            [382555] = true,            -- Ragestorm (Enrage)
+
+            -- Hackclaw's War-Band
             [381379] = true             -- Decayed Senses
         }
 
@@ -301,6 +305,9 @@ do
             [374724] = true,            -- Molten Subduction
             [375384] = true,            -- Rumbling Earth
             [391634] = false,           -- Deep Chill
+
+            -- Gulping Goliath
+            [385743] = true,            -- Hangry (Enrage)
 
             -- Primal Tsunami
             [383204] = true,            -- Crashing Tsunami
@@ -402,9 +409,9 @@ function Dispels:COMBAT_LOG_EVENT_UNFILTERED()
     if not (isPlayer or isPet) then return end
     
     local spellID, spellName, spellSchool, extraSpellID, extraSpellName, extraSchool,
-    auraType = select(12, CombatLogGetCurrentEventInfo())
+        auraType = select(12, CombatLogGetCurrentEventInfo())
 
-    if self.tracker[spellID] then
+    if self.tracker[extraSpellID] then
         local extraSpellLink = GetSpellLink(extraSpellID)
         if (eventType == "SPELL_DISPEL") then
             self:SendChatMessage("%s %s dispeled!", destName, extraSpellLink)
