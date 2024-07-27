@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Updates for patch 11.0.0
+-   Using `C_Spell` namespace
+-   Added some Dragonflight spells
+
 ## [1.1.1] - 2024-07-27
 
 ### Added

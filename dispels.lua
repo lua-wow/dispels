@@ -8,22 +8,51 @@ local tinsert = table.insert
 local tremove = table.remove
 
 -- Blizzard
+-- LE_EXPANSION_LEVEL_CURRENT
+local LE_EXPANSION_CLASSIC = _G.LE_EXPANSION_CLASSIC or 0                               -- Vanilla / Classic Era
+local LE_EXPANSION_BURNING_CRUSADE = _G.LE_EXPANSION_BURNING_CRUSADE or 1	            -- The Burning Crusade
+local LE_EXPANSION_WRATH_OF_THE_LICH_KING = _G.LE_EXPANSION_WRATH_OF_THE_LICH_KING or 2 -- Wrath of the Lich King
+local LE_EXPANSION_CATACLYSM = _G.LE_EXPANSION_CATACLYSM or 3	                        -- Cataclysm
+local LE_EXPANSION_MISTS_OF_PANDARIA = _G.LE_EXPANSION_MISTS_OF_PANDARIA or 4	        -- Mists of Pandaria
+local LE_EXPANSION_WARLORDS_OF_DRAENOR = _G.LE_EXPANSION_WARLORDS_OF_DRAENOR or 5	    -- Warlords of Draenor
+local LE_EXPANSION_LEGION = _G.LE_EXPANSION_LEGION or 6	                                -- Legion
+local LE_EXPANSION_BATTLE_FOR_AZEROTH = _G.LE_EXPANSION_BATTLE_FOR_AZEROTH or 7	        -- Battle for Azeroth
+local LE_EXPANSION_SHADOWLANDS = _G.LE_EXPANSION_SHADOWLANDS or 8                       -- Shadowlands
+local LE_EXPANSION_DRAGONFLIGHT = _G.LE_EXPANSION_DRAGONFLIGHT or 9	                    -- Dragonflight
+local LE_EXPANSION_11_0 = _G.LE_EXPANSION_11_0 or 10                                    -- War WithIn
+
 local GetInstanceInfo = _G.GetInstanceInfo
 local IsInInstance = _G.IsInInstance
 local IsInGroup = _G.IsInGroup
 local IsInRaid = _G.IsInRaid
 local CombatLogGetCurrentEventInfo = _G.CombatLogGetCurrentEventInfo
-local GetSpellLink = _G.GetSpellLink
+local GetSpellLink = C_Spell and C_Spell.GetSpellLink or _G.GetSpellLink
+local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or _G.GetSpellInfo
+local GetSpellName = C_Spell and C_Spell.GetSpellName or _G.GetSpellInfo
 local SendChatMessage = _G.SendChatMessage
 local COMBATLOG_OBJECT_AFFILIATION_MINE = _G.COMBATLOG_OBJECT_AFFILIATION_MINE  -- 0x00000001
 local COMBATLOG_OBJECT_TYPE_PET = _G.COMBATLOG_OBJECT_TYPE_PET                  -- 0x00001000
 
 local spells = {}
+spells[0] = {}      -- General this auras are applyed for all instances, even open world
+
 do
-    local _, _, _, interface = GetBuildInfo()
+    -- General
+    local general = spells[0]
+
+    if Dispels.isRetail then
+        -- Mithyc+ Affixes
+        general[395938] = true          -- Necrotic Decay
+        general[395946] = true          -- Putrid Bolt Poison
+        general[395950] = true          -- Festeing Burst Poison
+        general[409472] = true          -- Diseased Spirit
+
+        -- for testing, Ohn'ahran Plains - Nethazan Ruin, above Maruukai
+        general[375359] = true          -- Frenzy! (Enrage)
+    end
 
     -- Clasic
-    if Dispels.isClassic or (interface >= 10000) then
+    if Dispels.isClassic or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_CLASSIC) then
         -- [33] Shadowfang Keep
         -- [34] The Stockade
         -- [36] The Deadmines
@@ -53,7 +82,7 @@ do
     end
 
     -- The Burning Crusade
-    if Dispels.isBCC or (interface >= 20000) then
+    if Dispels.isBCC or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE) then
         -- [269] The Black Morass
         -- [540] The Shattered Halls
         -- [542] The Blood Furnace
@@ -81,7 +110,7 @@ do
     end
 
     -- The Wrath of the Lich King
-    if Dispels.isWotLK or (interface >= 30000) then
+    if Dispels.isWotLK or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_WRATH_OF_THE_LICH_KING) then
         -- [574] Utgarde Keep
         -- [575] Utgarde Pinnacle
         -- [576] The Nexus
@@ -110,7 +139,7 @@ do
     end
 
     -- Cataclysm
-    if Dispels.isCata or (interface >= 40000) then
+    if Dispels.isCata or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_CATACLYSM) then
         -- The Vortex Pinnacle
         spells[657] = {
             [87618] = true              -- Static Cling
@@ -136,7 +165,7 @@ do
     end
 
     -- Mists of Pandaria
-    if (interface >= 50000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_MISTS_OF_PANDARIA) then
         -- Temple of the Jade Serpent
         spells[960] = {
             [106113] = true             -- Touch of Nothingness
@@ -177,7 +206,7 @@ do
     end
 
     -- Warlords of Draenor
-    if (interface >= 60000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_WARLORDS_OF_DRAENOR) then
         -- [1182] Auchindoun
         -- [1175] Bloodmaul Slag Mines
         -- [1176] Shadowmoon Burial Grounds
@@ -192,7 +221,7 @@ do
     end
 
     -- Legion
-    if (interface >= 70000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_LEGION) then
         -- [1456] Eye of Azshara
         -- [1458] Neltharion's Lair
         -- [1466] Darkheart Thicket
@@ -214,7 +243,7 @@ do
     end
 
     -- Battle for Azeroth
-    if (interface >= 80000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BATTLE_FOR_AZEROTH) then
         -- Freehold
         spells[1754] = {
             [257908] = true             -- Oiled Blade
@@ -238,7 +267,7 @@ do
     end
 
     -- Shadowlands
-    if (interface >= 90000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_SHADOWLANDS) then
         -- [2284] Sanguine Depths
         -- [2285] Spires of Ascension
         -- [2286] The Necrotic Wake
@@ -254,7 +283,7 @@ do
     end
 
     -- Dragonflight
-    if Dispels.isRetail or (interface >= 100000) then
+    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_DRAGONFLIGHT) then
         -- The Azure Vault
         spells[2515] = {
             [374778] = true,            -- Brilliant Scale
@@ -265,7 +294,15 @@ do
 
         -- The Nokhud Offensive
         spells[2516] = {
-            [376827] = true             -- Conductive Strike
+            -- Trash
+            [334610] = true,            -- Hunt Prey (Enrage)
+            [376827] = true,            -- Conductive Strike
+            [383823] = true,            -- Rally the Clan (Enrage)
+            [386025] = true,            -- Tempest
+            [386223] = true,            -- Stormshield
+            [387596] = true,            -- Swift Wind
+            [387614] = true,            -- Chant of the Dead (Enrage)
+            [379033] = true,            -- Vicious Howl (Enrage)
         }
 
         -- Neltharus
@@ -296,6 +333,11 @@ do
 
         -- Algeth'ar Academy
         spells[2526] = {
+            -- Trash
+            [390938] = true,            -- Agitation (Enrage)
+            [377389] = true,            -- Call of the Flock (Enrage)
+
+            -- Overgrown Ancient
             [389033] = true             -- Lasher Toxin
         }
 
@@ -326,18 +368,9 @@ do
         -- [2549] Amidrassil, the Dream's Hope
     end
 
-    -- General
-    local general = {}
-
     if Dispels.isRetail then
-        -- Mithyc+ Affixes
-        general[395938] = true          -- Necrotic Decay
-        general[395946] = true          -- Putrid Bolt Poison
-        general[395950] = true          -- Festeing Burst Poison
-        general[409472] = true          -- Diseased Spirit
+        -- patch 11.0.0
     end
-
-    spells["General"] = general
 end
 
 local CombatEvents = {
@@ -347,22 +380,21 @@ local CombatEvents = {
 }
 
 function Dispels:print(...)
-    print("|cffb3ff19Dispels:|r", ...)
+    print("|cffff8000Dispels:|r", ...)
 end
 
 function Dispels:error(...)
     print("|cffff4500Dispels:|r", ...)
 end
 
-function Dispels:BuildSpellList(instanceID)
+function Dispels:ImportInstanceData(dest, instanceID)
+    if not instanceID then
+        instanceID = 0
+    end
     if not spells[instanceID] then return end
-
     for spellID, enabled in next, spells[instanceID] do
-        local name = GetSpellInfo(spellID)
-        if (name) then
-            self.tracker[spellID] = enabled
-        else
-            self:error("Invalid spellID (" .. spellID .. ")")
+        if enabled then
+            dest[spellID] = true
         end
     end
 end
@@ -371,22 +403,36 @@ function Dispels:PLAYER_LOGIN()
     self.unit = "player"
     self.guid = UnitGUID(self.unit)
     self.chatType = "SAY"
+
+    for zoneID, zoneData in next, spells do
+        for spellID, enabled in next, zoneData do
+            local name = GetSpellName(spellID)
+            if not name then
+                self:error("[" .. zoneID .. "] Spell " .. spellID .. " do not exists")
+                spells[zoneID][spellID] = nil
+            end
+        end
+    end
 end
 
 function Dispels:PLAYER_ENTERING_WORLD()
-    self.tracker = table.wipe(self.tracker or {})
+    self.auras = table.wipe(self.auras or {})
 
-    local IsInInstance, instanceType = IsInInstance()
+    local isInInstance, instanceType = IsInInstance()
     local instanceName, instanceType, _, _, _, _, _, instanceID, _, _ = GetInstanceInfo()
     
-    if IsInInstance and (instanceType == "raid" or instanceType == "party") then
-        -- import general spells
-        self:BuildSpellList("General")
-        -- import instance spells
+    if isInInstance and (instanceType == "raid" or instanceType == "party") then
+        -- copy general auras
+        self:ImportInstanceData(self.auras)
+
+        -- import instance auras
         -- https://wowpedia.fandom.com/wiki/InstanceID
-        self:BuildSpellList(instanceID)
+        self:ImportInstanceData(self.auras, instanceID)
+
+        -- start listening to combat log
         self:RegisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     else
+        -- stop listening to combat log
         self:UnregisterEvent("COMBAT_LOG_EVENT_UNFILTERED")
     end
 end
@@ -411,7 +457,7 @@ function Dispels:COMBAT_LOG_EVENT_UNFILTERED()
     local spellID, spellName, spellSchool, extraSpellID, extraSpellName, extraSchool,
         auraType = select(12, CombatLogGetCurrentEventInfo())
 
-    if self.tracker[extraSpellID] then
+    if self.auras[extraSpellID] then
         local extraSpellLink = GetSpellLink(extraSpellID)
         if (eventType == "SPELL_DISPEL") then
             self:SendChatMessage("%s %s dispeled!", destName, extraSpellLink)
