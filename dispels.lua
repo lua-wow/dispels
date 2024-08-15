@@ -3,6 +3,7 @@ local Dispels = ns.Dispels
 
 -- Lua
 local band = bit.band
+local bor = bit.bor
 local format = string.format
 local tinsert = table.insert
 local tremove = table.remove
@@ -19,7 +20,7 @@ local LE_EXPANSION_LEGION = _G.LE_EXPANSION_LEGION or 6	                        
 local LE_EXPANSION_BATTLE_FOR_AZEROTH = _G.LE_EXPANSION_BATTLE_FOR_AZEROTH or 7	        -- Battle for Azeroth
 local LE_EXPANSION_SHADOWLANDS = _G.LE_EXPANSION_SHADOWLANDS or 8                       -- Shadowlands
 local LE_EXPANSION_DRAGONFLIGHT = _G.LE_EXPANSION_DRAGONFLIGHT or 9	                    -- Dragonflight
-local LE_EXPANSION_11_0 = _G.LE_EXPANSION_11_0 or 10                                    -- War WithIn
+local LE_EXPANSION_WAR_WITHIN = _G.LE_EXPANSION_WAR_WITHIN or 10                        -- War WithIn
 
 local GetInstanceInfo = _G.GetInstanceInfo
 local IsInInstance = _G.IsInInstance
@@ -30,347 +31,342 @@ local GetSpellLink = C_Spell and C_Spell.GetSpellLink or _G.GetSpellLink
 local GetSpellInfo = C_Spell and C_Spell.GetSpellInfo or _G.GetSpellInfo
 local GetSpellName = C_Spell and C_Spell.GetSpellName or _G.GetSpellInfo
 local SendChatMessage = _G.SendChatMessage
-local COMBATLOG_OBJECT_AFFILIATION_MINE = _G.COMBATLOG_OBJECT_AFFILIATION_MINE  -- 0x00000001
-local COMBATLOG_OBJECT_TYPE_PET = _G.COMBATLOG_OBJECT_TYPE_PET                  -- 0x00001000
 
-local spells = {}
-spells[0] = {}      -- General this auras are applyed for all instances, even open world
+local COMBATLOG_FILTER_ME = _G.COMBATLOG_FILTER_ME or bor(
+    _G.COMBATLOG_OBJECT_AFFILIATION_MINE,
+    _G.COMBATLOG_OBJECT_REACTION_FRIENDLY,
+    _G.COMBATLOG_OBJECT_CONTROL_PLAYER,
+    _G.COMBATLOG_OBJECT_TYPE_PLAYER
+)
 
-do
-    -- General
-    local general = spells[0]
+local COMBATLOG_FILTER_MINE = _G.COMBATLOG_FILTER_MINE or bor(
+    _G.COMBATLOG_OBJECT_AFFILIATION_MINE,
+    _G.COMBATLOG_OBJECT_REACTION_FRIENDLY,
+    _G.COMBATLOG_OBJECT_CONTROL_PLAYER,
+    _G.COMBATLOG_OBJECT_TYPE_PLAYER,
+    _G.COMBATLOG_OBJECT_TYPE_OBJECT
+)
 
-    if Dispels.isRetail then
-        -- Mithyc+ Affixes
-        general[395938] = true          -- Necrotic Decay
-        general[395946] = true          -- Putrid Bolt Poison
-        general[395950] = true          -- Festeing Burst Poison
-        general[409472] = true          -- Diseased Spirit
-
-        -- for testing, Ohn'ahran Plains - Nethazan Ruin, above Maruukai
-        general[375359] = true          -- Frenzy! (Enrage)
-    end
-
+local spells = {
+    --------------------------------------------------
     -- Clasic
-    if Dispels.isClassic or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_CLASSIC) then
-        -- [33] Shadowfang Keep
-        -- [34] The Stockade
-        -- [36] The Deadmines
-        -- [43] Wailing Caverns
-        -- [47] Razorfen Kraul
-        -- [48] Blackfathom Deeps
-        -- [70] Uldaman
-        -- [90] Gnomeregan
-        -- [109] The Temple of Atal'Hakkar
-        -- [129] Razorfen Downs
-        -- [209] Zul'Farrak
-        -- [229] Blackrock Spire
-        -- [230] Blackrock Depths
-        -- [309] Zul'Gurub
-        -- [329] Stratholme
-        -- [349] Maraudon
-        -- [389] Ragefire Chasm
-        -- [429] Dire Maul
-        -- [409] Molten Core
-        -- [469] Blackwing Lair
-        -- [509] Ruins of Ahn'Qiraj
-        -- [531] Ahn'Qiraj Temple
-        -- [1001] Scarlet Halls
-        -- [1004] Scarlet Monastery
-        -- [1007] Scholomance
-        -- [3456] Naxxramas
-    end
+    --------------------------------------------------
+    -- [33] Shadowfang Keep
+    -- [34] The Stockade
+    -- [36] The Deadmines
+    -- [43] Wailing Caverns
+    -- [47] Razorfen Kraul
+    -- [48] Blackfathom Deeps
+    -- [70] Uldaman
+    -- [90] Gnomeregan
+    -- [109] The Temple of Atal'Hakkar
+    -- [129] Razorfen Downs
+    -- [209] Zul'Farrak
+    -- [229] Blackrock Spire
+    -- [230] Blackrock Depths
+    -- [309] Zul'Gurub
+    -- [329] Stratholme
+    -- [349] Maraudon
+    -- [389] Ragefire Chasm
+    -- [429] Dire Maul
+    -- [409] Molten Core
+    -- [469] Blackwing Lair
+    -- [509] Ruins of Ahn'Qiraj
+    -- [531] Ahn'Qiraj Temple
+    -- [1001] Scarlet Halls
+    -- [1004] Scarlet Monastery
+    -- [1007] Scholomance
+    -- [3456] Naxxramas
 
+    --------------------------------------------------
     -- The Burning Crusade
-    if Dispels.isBCC or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BURNING_CRUSADE) then
-        -- [269] The Black Morass
-        -- [540] The Shattered Halls
-        -- [542] The Blood Furnace
-        -- [543] Hellfire Ramparts
-        -- [545] The Steamvault
-        -- [546] The Underbog
-        -- [547] The Slave Pens
-        -- [552] The Arcatraz
-        -- [553] The Botanica
-        -- [554] The Mechanar
-        -- [555] Shadow Labyrinth
-        -- [556] Sethekk Halls
-        -- [557] Mana-Tombs
-        -- [558] Auchenai Crypts
-        -- [560] Old Hillsbrad Foothills
-        -- [585] Magisters' Terrace
-        -- [532] Karazhan
-        -- [534] The Battle for Mount Hyjal
-        -- [544] Magtheridon's Lair
-        -- [548] Serpentshrine Cavern
-        -- [550] Tempest Keep: The Eye
-        -- [564] Black Temple
-        -- [565] Gruul's Lair
-        -- [580] Sunwell Plateau
-    end
+    --------------------------------------------------
+    -- [269] The Black Morass
+    -- [540] The Shattered Halls
+    -- [542] The Blood Furnace
+    -- [543] Hellfire Ramparts
+    -- [545] The Steamvault
+    -- [546] The Underbog
+    -- [547] The Slave Pens
+    -- [552] The Arcatraz
+    -- [553] The Botanica
+    -- [554] The Mechanar
+    -- [555] Shadow Labyrinth
+    -- [556] Sethekk Halls
+    -- [557] Mana-Tombs
+    -- [558] Auchenai Crypts
+    -- [560] Old Hillsbrad Foothills
+    -- [585] Magisters' Terrace
+    -- [532] Karazhan
+    -- [534] The Battle for Mount Hyjal
+    -- [544] Magtheridon's Lair
+    -- [548] Serpentshrine Cavern
+    -- [550] Tempest Keep: The Eye
+    -- [564] Black Temple
+    -- [565] Gruul's Lair
+    -- [580] Sunwell Plateau
 
+    --------------------------------------------------
     -- The Wrath of the Lich King
-    if Dispels.isWotLK or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_WRATH_OF_THE_LICH_KING) then
-        -- [574] Utgarde Keep
-        -- [575] Utgarde Pinnacle
-        -- [576] The Nexus
-        -- [578] The Oculus
-        -- [595] The Culling of Stratholme
-        -- [599] Halls of Stone
-        -- [600] Drak'Tharon Keep
-        -- [601] Azjol-Nerub
-        -- [602] Halls of Lightning
-        -- [604] Gundrak
-        -- [608] The Violet Hold
-        -- [619] Ahn'kahet: The Old Kingdom
-        -- [632] The Forge of Souls
-        -- [650] Trial of the Champion
-        -- [658] Pit of Saron
-        -- [668] Halls of Reflection
-        -- [249] Onyxia's Lair
-        -- [533] Naxxramas
-        -- [603] Ulduar
-        -- [615] The Obsidian Sanctum
-        -- [616] The Eye of Eternity
-        -- [624] Vault of Archavon
-        -- [631] Icecrown Citadel
-        -- [649] Trial of the Crusader
-        -- [724] The Ruby Sanctum
-    end
-
+    --------------------------------------------------
+    -- [574] Utgarde Keep
+    -- [575] Utgarde Pinnacle
+    -- [576] The Nexus
+    -- [578] The Oculus
+    -- [595] The Culling of Stratholme
+    -- [599] Halls of Stone
+    -- [600] Drak'Tharon Keep
+    -- [601] Azjol-Nerub
+    -- [602] Halls of Lightning
+    -- [604] Gundrak
+    -- [608] The Violet Hold
+    -- [619] Ahn'kahet: The Old Kingdom
+    -- [632] The Forge of Souls
+    -- [650] Trial of the Champion
+    -- [658] Pit of Saron
+    -- [668] Halls of Reflection
+    -- [249] Onyxia's Lair
+    -- [533] Naxxramas
+    -- [603] Ulduar
+    -- [615] The Obsidian Sanctum
+    -- [616] The Eye of Eternity
+    -- [624] Vault of Archavon
+    -- [631] Icecrown Citadel
+    -- [649] Trial of the Crusader
+    -- [724] The Ruby Sanctum
+    
+    --------------------------------------------------
     -- Cataclysm
-    if Dispels.isCata or (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_CATACLYSM) then
-        -- The Vortex Pinnacle
-        spells[657] = {
-            [87618] = true              -- Static Cling
-        }
+    --------------------------------------------------
+    -- The Vortex Pinnacle
+    [657] = {
+        [87618] = true                  -- Static Cling
+    },
+    -- [568] Zul'Aman
+    -- [643] Throne of the Tides
+    -- [644] Halls of Origination
+    -- [645] Blackrock Caverns
+    -- [670] Grim Batol
+    -- [725] The Stonecore
+    -- [755] Lost City of the Tol'vir
+    -- [859] Zul'Gurub
+    -- [938] End Time
+    -- [939] Well of Eternity
+    -- [940] Hour of Twilight
+    -- [669] Blackwing Descent
+    -- [671] The Bastion of Twilight
+    -- [720] Firelands
+    -- [754] Throne of the Four Winds
+    -- [757] Baradin Hold
+    -- [967] Dragon Soul
 
-        -- [568] Zul'Aman
-        -- [643] Throne of the Tides
-        -- [644] Halls of Origination
-        -- [645] Blackrock Caverns
-        -- [670] Grim Batol
-        -- [725] The Stonecore
-        -- [755] Lost City of the Tol'vir
-        -- [859] Zul'Gurub
-        -- [938] End Time
-        -- [939] Well of Eternity
-        -- [940] Hour of Twilight
-        -- [669] Blackwing Descent
-        -- [671] The Bastion of Twilight
-        -- [720] Firelands
-        -- [754] Throne of the Four Winds
-        -- [757] Baradin Hold
-        -- [967] Dragon Soul
-    end
-
+    --------------------------------------------------
     -- Mists of Pandaria
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_MISTS_OF_PANDARIA) then
-        -- Temple of the Jade Serpent
-        spells[960] = {
-            [106113] = true             -- Touch of Nothingness
-        }
+    --------------------------------------------------
+    -- Temple of the Jade Serpent
+    [960] = {
+        [106113] = true             -- Touch of Nothingness
+    },
+    -- Terrace of Endless Spring
+    [996] = {
+        [117398] = true,            -- Lightning Prison
+        [117235] = true,            -- Purified
+        [123011] = true             -- Terrorize
+    },
+    -- Mogu'shan Vaults
+    [1008] = {
+        [117961] = true,            -- Impervious Shield
+        [117697] = true,            -- Shield of Darkness
+        [117837] = true,            -- Delirious
+        [117949] = true             -- Closed Circuit
+    },
+    -- Heart of Fear
+    [1009] = {
+        [122149] = true,            -- Quickening
+        [124862] = true             -- Visions of Demise
+    },
+    -- Siege of Orgrimmar
+    [1136] = {
+        [143791] = true             -- Corrosive Blood
+    },
+    -- [959] Shado-pan Monastery
+    -- [961] Stormstout Brewery
+    -- [962] Gate of the Setting Sun
+    -- [994] Mogu'Shan Palace
+    -- [1011] Siege of Niuzao Temple
+    -- [1098] Throne of Thunder
 
-        -- Terrace of Endless Spring
-        spells[996] = {
-            [117398] = true,            -- Lightning Prison
-            [117235] = true,            -- Purified
-            [123011] = true             -- Terrorize
-        }
-
-        -- Mogu'shan Vaults
-        spells[1008] = {
-            [117961] = true,            -- Impervious Shield
-            [117697] = true,            -- Shield of Darkness
-            [117837] = true,            -- Delirious
-            [117949] = true             -- Closed Circuit
-        }
-
-        -- Heart of Fear
-        spells[1009] = {
-            [122149] = true,            -- Quickening
-            [124862] = true             -- Visions of Demise
-        }
-
-        -- Siege of Orgrimmar
-        spells[1136] = {
-            [143791] = true             -- Corrosive Blood
-        }
-
-        -- [959] Shado-pan Monastery
-        -- [961] Stormstout Brewery
-        -- [962] Gate of the Setting Sun
-        -- [994] Mogu'Shan Palace
-        -- [1011] Siege of Niuzao Temple
-        -- [1098] Throne of Thunder
-    end
-
+    --------------------------------------------------
     -- Warlords of Draenor
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_WARLORDS_OF_DRAENOR) then
-        -- [1182] Auchindoun
-        -- [1175] Bloodmaul Slag Mines
-        -- [1176] Shadowmoon Burial Grounds
-        -- [1195] Iron Docks
-        -- [1208] Grimrail Depot
-        -- [1209] Skyreach
-        -- [1279] The Everbloom
-        -- [1358] Upper Blackrock Spire
-        -- [1205] Blackrock Foundry
-        -- [1228] Highmaul
-        -- [1448] Hellfire Citadel
-    end
+    --------------------------------------------------
+    -- [1182] Auchindoun
+    -- [1175] Bloodmaul Slag Mines
+    -- [1176] Shadowmoon Burial Grounds
+    -- [1195] Iron Docks
+    -- [1208] Grimrail Depot
+    -- [1209] Skyreach
+    -- [1279] The Everbloom
+    -- [1358] Upper Blackrock Spire
+    -- [1205] Blackrock Foundry
+    -- [1228] Highmaul
+    -- [1448] Hellfire Citadel
 
+    --------------------------------------------------
     -- Legion
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_LEGION) then
-        -- [1456] Eye of Azshara
-        -- [1458] Neltharion's Lair
-        -- [1466] Darkheart Thicket
-        -- [1477] Halls of Valor
-        -- [1492] Maw of Souls
-        -- [1493] Vault of the Wardens
-        -- [1501] Black Rook Hold
-        -- [1516] The Arcway
-        -- [1544] Violet Hold
-        -- [1571] Court of Stars
-        -- [1651] Return to Karazhan
-        -- [1677] Cathedral of Eternal Night
-        -- [1753] Seat of the Triumvirate
-        -- [1520] The Emerald Nightmare
-        -- [1530] The Nighthold
-        -- [1648] Trial of Valor
-        -- [1676] Tomb of Sargeras
-        -- [1712] Antorus, the Burning Throne
-    end
+    --------------------------------------------------
+    -- [1456] Eye of Azshara
+    -- [1458] Neltharion's Lair
+    -- [1466] Darkheart Thicket
+    -- [1477] Halls of Valor
+    -- [1492] Maw of Souls
+    -- [1493] Vault of the Wardens
+    -- [1501] Black Rook Hold
+    -- [1516] The Arcway
+    -- [1544] Violet Hold
+    -- [1571] Court of Stars
+    -- [1651] Return to Karazhan
+    -- [1677] Cathedral of Eternal Night
+    -- [1753] Seat of the Triumvirate
+    -- [1520] The Emerald Nightmare
+    -- [1530] The Nighthold
+    -- [1648] Trial of Valor
+    -- [1676] Tomb of Sargeras
+    -- [1712] Antorus, the Burning Throne
 
+    --------------------------------------------------
     -- Battle for Azeroth
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_BATTLE_FOR_AZEROTH) then
-        -- Freehold
-        spells[1754] = {
-            [257908] = true             -- Oiled Blade
-        }
+    --------------------------------------------------
+    -- Freehold
+    [1754] = {
+        [257908] = true             -- Oiled Blade
+    },
 
-        -- [1594] The MOTHERLODE!!
-        -- [1762] Kings' Rest
-        -- [1763] Atal'Dazar
-        -- [1771] Tol Dagor
-        -- [1822] Siege of Boralus
-        -- [1841] The Underrot
-        -- [1862] Waycrest Manor
-        -- [1864] Shrine of the Storm
-        -- [1877] Temple of Sethraliss
-        -- [2097] Operation: Mechagon
-        -- [1861] Uldir
-        -- [2070] Battle of Dazar'alor
-        -- [2096] Crucible of Storms
-        -- [2164] The Eternal Palace
-        -- [2217] Ny'alotha
-    end
-
+    -- [1594] The MOTHERLODE!!
+    -- [1762] Kings' Rest
+    -- [1763] Atal'Dazar
+    -- [1771] Tol Dagor
+    -- [1822] Siege of Boralus
+    -- [1841] The Underrot
+    -- [1862] Waycrest Manor
+    -- [1864] Shrine of the Storm
+    -- [1877] Temple of Sethraliss
+    -- [2097] Operation: Mechagon
+    -- [1861] Uldir
+    -- [2070] Battle of Dazar'alor
+    -- [2096] Crucible of Storms
+    -- [2164] The Eternal Palace
+    -- [2217] Ny'alotha
+    
+    
+    --------------------------------------------------
     -- Shadowlands
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_SHADOWLANDS) then
-        -- [2284] Sanguine Depths
-        -- [2285] Spires of Ascension
-        -- [2286] The Necrotic Wake
-        -- [2287] Halls of Atonement
-        -- [2289] Plaguefall
-        -- [2290] Mists of Tirna Scithe
-        -- [2291] De Other Side
-        -- [2293] Theater of Pain
-        -- [2441] Tazavesh the Veiled Market
-        -- [2296] Castle Nathria
-        -- [2450] Sanctum of Domination
-        -- [2481] Sepulcher of the First Ones
-    end
-
+    --------------------------------------------------
+    -- [2284] Sanguine Depths
+    -- [2285] Spires of Ascension
+    -- [2286] The Necrotic Wake
+    -- [2287] Halls of Atonement
+    -- [2289] Plaguefall
+    -- [2290] Mists of Tirna Scithe
+    -- [2291] De Other Side
+    -- [2293] Theater of Pain
+    -- [2441] Tazavesh the Veiled Market
+    -- [2296] Castle Nathria
+    -- [2450] Sanctum of Domination
+    -- [2481] Sepulcher of the First Ones
+    
+    --------------------------------------------------
     -- Dragonflight
-    if (LE_EXPANSION_LEVEL_CURRENT > LE_EXPANSION_DRAGONFLIGHT) then
-        -- The Azure Vault
-        spells[2515] = {
-            [374778] = true,            -- Brilliant Scale
-            [375602] = true,            -- Erratic Growth
-            [377488] = true,            -- Icy Bindings
-            [387564] = false,           -- Mystic Vapor
-        }
+    --------------------------------------------------
+    -- The Azure Vault
+    [2515] = {
+        [374778] = true,            -- Brilliant Scale
+        [375602] = true,            -- Erratic Growth
+        [377488] = true,            -- Icy Bindings
+        [387564] = false,           -- Mystic Vapor
+    },
+    -- The Nokhud Offensive
+    [2516] = {
+        -- Trash
+        [334610] = true,            -- Hunt Prey (Enrage)
+        [376827] = true,            -- Conductive Strike
+        [383823] = true,            -- Rally the Clan (Enrage)
+        [386025] = true,            -- Tempest
+        [386223] = true,            -- Stormshield
+        [387596] = true,            -- Swift Wind
+        [387614] = true,            -- Chant of the Dead (Enrage)
+        [379033] = true,            -- Vicious Howl (Enrage)
+    },
+    -- Neltharus
+    [2519] = {
+        [372461] = true,            -- Imbued Magma
+        [378149] = true             -- Granite Shell
+    },
+    -- Brackenhide Hollow
+    [2520] = {
+        -- Trash
+        [382555] = true,            -- Ragestorm (Enrage)
 
-        -- The Nokhud Offensive
-        spells[2516] = {
-            -- Trash
-            [334610] = true,            -- Hunt Prey (Enrage)
-            [376827] = true,            -- Conductive Strike
-            [383823] = true,            -- Rally the Clan (Enrage)
-            [386025] = true,            -- Tempest
-            [386223] = true,            -- Stormshield
-            [387596] = true,            -- Swift Wind
-            [387614] = true,            -- Chant of the Dead (Enrage)
-            [379033] = true,            -- Vicious Howl (Enrage)
-        }
+        -- Hackclaw's War-Band
+        [381379] = true             -- Decayed Senses
+    },
+    -- Ruby Life Pools
+    [2521] = {
+        -- Trash
+        [372749] = true,            -- Ice Shield
+        [373589] = true,            -- Primal Chill
+        [373972] = true,            -- Blaze of Glory
 
-        -- Neltharus
-        spells[2519] = {
-            [372461] = true,            -- Imbued Magma
-            [378149] = true             -- Granite Shell
-        }
+        -- Melidrussa Chillworm
+        [372682] = true             -- Primal Chill
+    },
+    -- Algeth'ar Academy
+    [2526] = {
+        -- Trash
+        [390938] = true,            -- Agitation (Enrage)
+        [377389] = true,            -- Call of the Flock (Enrage)
 
-        -- Brackenhide Hollow
-        spells[2520] = {
-            -- Trash
-            [382555] = true,            -- Ragestorm (Enrage)
+        -- Overgrown Ancient
+        [389033] = true             -- Lasher Toxin
+    },
+    -- Halls of Infusion
+    [2527] = {
+        -- Trash
+        [374724] = true,            -- Molten Subduction
+        [375384] = true,            -- Rumbling Earth
+        [391634] = false,           -- Deep Chill
 
-            -- Hackclaw's War-Band
-            [381379] = true             -- Decayed Senses
-        }
+        -- Gulping Goliath
+        [385743] = true,            -- Hangry (Enrage)
 
-        -- Ruby Life Pools
-        spells[2521] = {
-            -- Trash
-            [372749] = true,            -- Ice Shield
-            [373589] = true,            -- Primal Chill
-            [373972] = true,            -- Blaze of Glory
+        -- Primal Tsunami
+        [383204] = true,            -- Crashing Tsunami
+    },
+    -- Uldaman: Legacy of Tyr
+    [2451] = {
+        [369365] = true,            -- Curse of Stone
+        [369366] = true,            -- Trapped in Stone
+        [369400] = true             -- Earthen Ward
+    }
+    -- [2579] Dawn of the Infinite
+    -- [2522] Vault of the Incarnates
+    -- [2569] Aberrus, the Shadowed Crucible
+    -- [2549] Amidrassil, the Dream's Hope
+}
 
-            -- Melidrussa Chillworm
-            [372682] = true             -- Primal Chill
-        }
+if Dispels.isRetail then
+    spells[0] = {
+        -- Mithyc+ Affixes
+        [395938] = true,            -- Necrotic Decay
+        [395946] = true,            -- Putrid Bolt Poison
+        [395950] = true,            -- Festeing Burst Poison
+        [409472] = true,            -- Diseased Spirit
 
-        -- Algeth'ar Academy
-        spells[2526] = {
-            -- Trash
-            [390938] = true,            -- Agitation (Enrage)
-            [377389] = true,            -- Call of the Flock (Enrage)
-
-            -- Overgrown Ancient
-            [389033] = true             -- Lasher Toxin
-        }
-
-        -- Halls of Infusion
-        spells[2527] = {
-            -- Trash
-            [374724] = true,            -- Molten Subduction
-            [375384] = true,            -- Rumbling Earth
-            [391634] = false,           -- Deep Chill
-
-            -- Gulping Goliath
-            [385743] = true,            -- Hangry (Enrage)
-
-            -- Primal Tsunami
-            [383204] = true,            -- Crashing Tsunami
-        }
-
-        -- Uldaman: Legacy of Tyr
-        spells[2451] = {
-            [369365] = true,            -- Curse of Stone
-            [369366] = true,            -- Trapped in Stone
-            [369400] = true             -- Earthen Ward
-        }
-
-        -- [2579] Dawn of the Infinite
-        -- [2522] Vault of the Incarnates
-        -- [2569] Aberrus, the Shadowed Crucible
-        -- [2549] Amidrassil, the Dream's Hope
-    end
-
-    if Dispels.isRetail then
-        -- patch 11.0.0
-    end
+        -- debugging
+        [375359] = true,            -- Frenzy! (Enrage) - location: Ohn'ahran Plains - Nethazan Ruin, above Maruukai
+        [114803] = true,            -- Throw Torch (Magic) - location: Temple of the Jade Serpent
+    }
+else
+    spells[0] = {}
 end
 
 local CombatEvents = {
@@ -403,16 +399,6 @@ function Dispels:PLAYER_LOGIN()
     self.unit = "player"
     self.guid = UnitGUID(self.unit)
     self.chatType = "SAY"
-
-    for zoneID, zoneData in next, spells do
-        for spellID, enabled in next, zoneData do
-            local name = GetSpellName(spellID)
-            if not name then
-                self:error("[" .. zoneID .. "] Spell " .. spellID .. " do not exists")
-                spells[zoneID][spellID] = nil
-            end
-        end
-    end
 end
 
 function Dispels:PLAYER_ENTERING_WORLD()
@@ -450,10 +436,10 @@ function Dispels:COMBAT_LOG_EVENT_UNFILTERED()
     if (not CombatEvents[eventType]) then return end
 
     -- filter casters, only player or belong to player
-    local isPlayer = (band(sourceFlags, COMBATLOG_OBJECT_AFFILIATION_MINE) ~= COMBATLOG_OBJECT_AFFILIATION_MINE) or (sourceGUID == self.guid)
-    local isPet = (band(sourceFlags, COMBATLOG_OBJECT_TYPE_PET) ~= COMBATLOG_OBJECT_TYPE_PET) or (sourceGUID == UnitGUID("pet"))
-    if not (isPlayer or isPet) then return end
-    
+    -- https://github.com/Gethe/wow-ui-source/blob/live/Interface/AddOns/Blizzard_FrameXMLBase/Constants.lua
+    local isMine = CombatLog_Object_IsA(sourceFlags, COMBATLOG_FILTER_ME) or CombatLog_Object_IsA(sourceFlags, COMBATLOG_FILTER_MY_PET)
+    if not isMine then return end
+
     local spellID, spellName, spellSchool, extraSpellID, extraSpellName, extraSchool,
         auraType = select(12, CombatLogGetCurrentEventInfo())
 

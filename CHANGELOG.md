@@ -9,9 +9,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
--   Updates for patch 11.0.0
--   Using `C_Spell` namespace
+-   Patch 11.0.0, new api namespace `C_Spell`
 -   Added some Dragonflight spells
+-   Fix flags filter, the addon was annoucing dispels from other party members.
 
 ## [1.1.1] - 2024-07-27
 
