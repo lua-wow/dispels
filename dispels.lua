@@ -240,12 +240,15 @@ local spells = {
     [1754] = {
         [257908] = true             -- Oiled Blade
     },
+    -- Siege of Boralus
+    [1822] = {
+        [274991] = true,            -- Putrid Waters
+    },
 
     -- [1594] The MOTHERLODE!!
     -- [1762] Kings' Rest
     -- [1763] Atal'Dazar
     -- [1771] Tol Dagor
-    -- [1822] Siege of Boralus
     -- [1841] The Underrot
     -- [1862] Waycrest Manor
     -- [1864] Shrine of the Storm
@@ -257,16 +260,24 @@ local spells = {
     -- [2164] The Eternal Palace
     -- [2217] Ny'alotha
     
-    
     --------------------------------------------------
     -- Shadowlands
     --------------------------------------------------
+    -- Mists of Tirna Scithe
+    [2290] = {
+        [322557] = true,            -- Soul Split
+    },
+    -- The Necrotic Wake
+    [2286] = {
+        [323365] = true,            -- Clinging Darkness (Magic)
+        [324293] = true,            -- Rasping Scream (Magic / Fear)
+        [335141] = true,            -- Dark Shroud (Magic)
+        [320788] = true,            -- Frozen Binds (Magic)
+    },
     -- [2284] Sanguine Depths
     -- [2285] Spires of Ascension
-    -- [2286] The Necrotic Wake
     -- [2287] Halls of Atonement
     -- [2289] Plaguefall
-    -- [2290] Mists of Tirna Scithe
     -- [2291] De Other Side
     -- [2293] Theater of Pain
     -- [2441] Tazavesh the Veiled Market
@@ -346,11 +357,68 @@ local spells = {
         [369365] = true,            -- Curse of Stone
         [369366] = true,            -- Trapped in Stone
         [369400] = true             -- Earthen Ward
-    }
+    },
     -- [2579] Dawn of the Infinite
     -- [2522] Vault of the Incarnates
     -- [2569] Aberrus, the Shadowed Crucible
     -- [2549] Amidrassil, the Dream's Hope
+
+    ----------------------------------------------------------
+    -- The War Within
+    ----------------------------------------------------------
+    --  The Rookery
+    [2648] = {
+        [427260] = true,            -- Enrage Rook (Enrage)
+    },
+    -- Priory of the Sacred Frame
+    [2649] = {
+        [435148] = true,            -- Blazing Stike (Magic)
+        [427346] = true,            -- Inner Fire (Magic)
+    },
+    -- Darkflame Cleft
+    [2651] = {
+        [427929] = true,            -- Nasty Nibble (Disease)
+        [428019] = true,            -- Flashpoint (Magic)
+    },
+    -- The Stonevault
+    [2652] = {
+        -- Trash
+        [426308] = true,            -- Void Infection (Curse)
+        [427382] = false,           -- Concussive Smash (Magic / Slow)
+        [429545] = true,            -- Censoring Gear (Magic / Silence)
+        [449455] = true,            -- Howling Fear (Magic / Fear)
+
+        -- E.D.N.A
+        [424889] = true,            -- Seismic Reverberation (Magic)
+    },
+    -- Ara-Kara, City of Echoes
+    [2660] = {
+        [434802] = true,            -- Horrifying Shrill (Magic / Fear)
+    },
+    -- Cinderbrew Meadery
+    [2661] = {
+        [439325] = true,            -- Burning Fermentation (Magic)
+        [436640] = true,            -- Burning Ricochet (Magic)
+    },
+    -- The Dawnbreaker
+    [2662] = {
+        [432448] = true,            -- Stygian Seed (Magic)
+        [426735] = true,            -- Burning Shadows (Magic)
+    },
+    -- City of Threads
+    [2669] = {
+        [443437] = true,            -- Shadows of Doubt (Magic)
+        [440238] = true,            -- Ice Sickles (Magic)
+    },
+    -- Nerub-ar Palace
+    [2657] = {
+        -- THe Silken Court
+        [441772] = true,               -- Void Bolt
+        [438708] = true,               -- Stinging Swarm
+
+        -- Queen Ansurek
+        [447967] = true,               -- Gloom Touch
+    }
 }
 
 if Dispels.isRetail then
@@ -360,6 +428,7 @@ if Dispels.isRetail then
         [395946] = true,            -- Putrid Bolt Poison
         [395950] = true,            -- Festeing Burst Poison
         [409472] = true,            -- Diseased Spirit
+        [440313] = true,            -- Void Rift
 
         -- debugging
         [375359] = true,            -- Frenzy! (Enrage) - location: Ohn'ahran Plains - Nethazan Ruin, above Maruukai
