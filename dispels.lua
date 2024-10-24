@@ -142,11 +142,14 @@ local spells = {
     [657] = {
         [87618] = true                  -- Static Cling
     },
+    -- Grim Batol
+    [670] = {
+        [451040] = true,                -- Rage (Enrage - Twilight Enforcer)
+    },
     -- [568] Zul'Aman
     -- [643] Throne of the Tides
     -- [644] Halls of Origination
     -- [645] Blackrock Caverns
-    -- [670] Grim Batol
     -- [725] The Stonecore
     -- [755] Lost City of the Tol'vir
     -- [859] Zul'Gurub
@@ -266,13 +269,16 @@ local spells = {
     -- Mists of Tirna Scithe
     [2290] = {
         [322557] = true,            -- Soul Split
+        [324737] = true,            -- Enraged (Enreage)
+        [324776] = true,            -- Bramblethorn Coat (Magic)
     },
     -- The Necrotic Wake
     [2286] = {
+        [320012] = true,            -- Unholy Frenzy (Enrage)
+        [320788] = true,            -- Frozen Binds (Magic)
         [323365] = true,            -- Clinging Darkness (Magic)
         [324293] = true,            -- Rasping Scream (Magic / Fear)
         [335141] = true,            -- Dark Shroud (Magic)
-        [320788] = true,            -- Frozen Binds (Magic)
     },
     -- [2284] Sanguine Depths
     -- [2285] Spires of Ascension
@@ -402,8 +408,9 @@ local spells = {
     },
     -- The Dawnbreaker
     [2662] = {
-        [432448] = true,            -- Stygian Seed (Magic)
         [426735] = true,            -- Burning Shadows (Magic)
+        [431493] = true,            -- Darkblade (Magic)
+        [432448] = true,            -- Stygian Seed (Magic)
     },
     -- City of Threads
     [2669] = {
