@@ -1,11 +1,11 @@
-## Interface: 11503, 20504, 30403, 40400, 100207, 110002
+## Interface: 11503, 20504, 30403, 40400, 100207, 110005
 ## Author: Luaerror
 ## Version: 1.1.3
 ## Title: |cffff8000Dispels|r
 ## Notes: Dispel announcer
 ## IconTexture: Interface\ICONS\Spell_Holy_Dispelmagic
 
-## X-Website: https://github.com/wow-lua/dispels
+## X-Website: https://github.com/lua-wow/dispels
 ## X-Maintainer: Luaerror
 
 init.xml
