@@ -239,6 +239,17 @@ local spells = {
     --------------------------------------------------
     -- Battle for Azeroth
     --------------------------------------------------
+    -- [1594] The MOTHERLODE!!
+    [1594] = {
+        [259853] = true, -- Chemical Burn (Magic)
+        [262092] = true, -- Inhale Vapors (Enrage)
+        [263215] = true, -- Tectonic Barrier (Magic)
+        [268797] = true, -- Transmute: Enemy to Goo (Magic)
+        [268846] = true, -- Echo Blade (Magic)
+        [269298] = false, -- Toxic Blades (Poison)
+        [280604] = true, -- Iced Spritzer (Magic)
+        [1213139] = true, -- Overtime! (Enrage)
+    },
     -- Freehold
     [1754] = {
         [257908] = true             -- Oiled Blade
@@ -247,8 +258,22 @@ local spells = {
     [1822] = {
         [274991] = true,            -- Putrid Waters
     },
+    -- Operation: Mechagon
+    [2097] = {
+        -- Trash
+        [293930] = true,            -- Overclock (Magic)
+        [294195] = true,            -- Arcing Zap (Magic)
+        [297133] = true,            -- Defensive Countermeasure (Magic)
+        [1215415] = true,           -- Sticky Sludge (Disease)
+        [1217821] = true,           -- Fiery Jaws (Magic)
 
-    -- [1594] The MOTHERLODE!!
+        -- K.U.-J.0
+        [294929] = true,            -- Blazing Chomp (Magic)
+
+        -- Mechanist's Garden
+        [285460] = true,            -- Discom-BOMB-ulator (Magic)
+    },
+    
     -- [1762] Kings' Rest
     -- [1763] Atal'Dazar
     -- [1771] Tol Dagor
@@ -256,7 +281,6 @@ local spells = {
     -- [1862] Waycrest Manor
     -- [1864] Shrine of the Storm
     -- [1877] Temple of Sethraliss
-    -- [2097] Operation: Mechagon
     -- [1861] Uldir
     -- [2070] Battle of Dazar'alor
     -- [2096] Crucible of Storms
@@ -266,12 +290,6 @@ local spells = {
     --------------------------------------------------
     -- Shadowlands
     --------------------------------------------------
-    -- Mists of Tirna Scithe
-    [2290] = {
-        [322557] = true,            -- Soul Split
-        [324737] = true,            -- Enraged (Enreage)
-        [324776] = true,            -- Bramblethorn Coat (Magic)
-    },
     -- The Necrotic Wake
     [2286] = {
         [320012] = true,            -- Unholy Frenzy (Enrage)
@@ -280,12 +298,24 @@ local spells = {
         [324293] = true,            -- Rasping Scream (Magic / Fear)
         [335141] = true,            -- Dark Shroud (Magic)
     },
+    -- Mists of Tirna Scithe
+    [2290] = {
+        [322557] = true,            -- Soul Split
+        [324737] = true,            -- Enraged (Enreage)
+        [324776] = true,            -- Bramblethorn Coat (Magic)
+    },
+    -- Theater of Pain
+    [2293] = {
+        [330725] = true,            -- Shadow Vulnerability (Curse)
+        [333293] = true,            -- Bone Shield (Magic)
+        [1215600] = true,           -- Withering Touch (Magic)
+    },
+
     -- [2284] Sanguine Depths
     -- [2285] Spires of Ascension
     -- [2287] Halls of Atonement
     -- [2289] Plaguefall
     -- [2291] De Other Side
-    -- [2293] Theater of Pain
     -- [2441] Tazavesh the Veiled Market
     -- [2296] Castle Nathria
     -- [2450] Sanctum of Domination
@@ -374,7 +404,10 @@ local spells = {
     ----------------------------------------------------------
     --  The Rookery
     [2648] = {
-        [427260] = true,            -- Enrage Rook (Enrage)
+        [427260] = true,            -- Lightning Surge / Enrage Rook (Enrage)
+        [469956] = true,            -- Lightning-Infused (Magic)
+        [430179] = true,            -- Seeping Corruption (Curse)
+        [429493] = true,            -- Unstable Corruption (Magic)
     },
     -- Priory of the Sacred Frame
     [2649] = {
@@ -383,6 +416,10 @@ local spells = {
     },
     -- Darkflame Cleft
     [2651] = {
+        [424650] = true,            -- Panicked! (Enrage)
+        [425704] = true,            -- Enrage
+        [426145] = true,            -- Paranoid Mind (Magic + Fear)
+        [426295] = true,            -- Flaming Tether (Magic)
         [427929] = true,            -- Nasty Nibble (Disease)
         [428019] = true,            -- Flashpoint (Magic)
     },
@@ -393,6 +430,7 @@ local spells = {
         [427382] = false,           -- Concussive Smash (Magic / Slow)
         [429545] = true,            -- Censoring Gear (Magic / Silence)
         [449455] = true,            -- Howling Fear (Magic / Fear)
+        [469620] = true,            -- Creeping Shadow (Magic)
 
         -- E.D.N.A
         [424889] = true,            -- Seismic Reverberation (Magic)
@@ -403,7 +441,15 @@ local spells = {
     },
     -- Cinderbrew Meadery
     [2661] = {
+        -- Trash
+        [436640] = true,            -- Burning Ricochet (Magic)
+        [437956] = true,            -- Erupting Inferno (Magic)
         [439325] = true,            -- Burning Fermentation (Magic)
+        [441397] = true,            -- Bee Venom (Slow)
+        [441627] = true,            -- Rejuvenating Honey (Magic)
+        [442589] = true,            -- Beeswax (Magic + Stun)
+
+        -- Goldie Baronbottom
         [436640] = true,            -- Burning Ricochet (Magic)
     },
     -- The Dawnbreaker
@@ -425,6 +471,10 @@ local spells = {
 
         -- Queen Ansurek
         [447967] = true,               -- Gloom Touch
+    },
+    -- Operation: Floodgate
+    [2773] = {
+        [465604] = true,                -- Battery Bolt
     }
 }
 
