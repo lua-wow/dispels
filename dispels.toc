@@ -1,4 +1,4 @@
-## Interface: 11506, 20504, 30403, 40400, 100207, 110107
+## Interface: 11507, 20504, 30403, 40400, 50500, 100207, 110107
 ## Author: Luaerror
 ## Version: 1.1.4
 ## Title: |cffff8000Dispels|r
