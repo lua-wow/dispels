@@ -310,10 +310,42 @@ local spells = {
         [333293] = true,            -- Bone Shield (Magic)
         [1215600] = true,           -- Withering Touch (Magic)
     },
+    --  Halls of Atonement
+    [2287] = {
+        [319611] = true,            -- Turned to Stone (Magic)
+        [322977] = true,            -- Sinlight Visions (Fear)
+        [325701] = true,            -- Siphon Life (Magic)
+        [325876] = true,            -- Mark of Obliteration (Magic)
+        [326450] = true,            -- Loyal Beasts (Enrage)
+        [1235060] = true,           -- Anima Tainted Armor (Magic)
+        [1236513] = true,           -- Unstable Anime (Magic)
+        [1236514] = true,           -- Unstable Anime (Magic)
+    },
+    -- Tazavesh: Streets of Wonder
+    [2441] = {
+        -- Streets of Wonder
+        [347775] = true,            -- Spam Filter (Mafic)
+        [349954] = true,            -- Purification Protocol
+        [353706] = true,            -- Rowdy (Enrage)
+        [355641] = true,            -- Sintillate (Magic)
+        [355888] = true,            -- Hard Light Baton (Magic)
+        [355915] = true,            -- Glyph of Restraint (Magic)
+        [355934] = true,            -- Hard Light Barrier (Magic)
+        [355980] = true,            -- Refraction Shield (Magic)
+        [356407] = true,            -- Ancient Dread (Curse)
+        [356943] = true,            -- Lockdown (Magic)
+        [357029] = true,            -- Hyperlight Bomb (Magic)
+    
+        -- So'leash's Gambit
+        [347149] = true,            -- Infinite Breath (Magic / Stun)
+        [355057] = true,            -- Cry of Mrrggllrrgg (Enrage)
+        [356133] = true,            -- Super Saison (Enrage)
+        [1240097] = true,           -- Time Bomb (Magic)
+        [1240214] = true,           -- Double Time (Magic)
+    },
 
     -- [2284] Sanguine Depths
     -- [2285] Spires of Ascension
-    -- [2287] Halls of Atonement
     -- [2289] Plaguefall
     -- [2291] De Other Side
     -- [2441] Tazavesh the Veiled Market
@@ -475,6 +507,13 @@ local spells = {
     -- Operation: Floodgate
     [2773] = {
         [465604] = true,                -- Battery Bolt
+    },
+    -- Eco'Dome Al'dani
+    [2830] = {
+        [1221483] = true,               -- Arcing Energy (Magic)
+        [1231608] = true,               -- Alacrity (Magic)
+        [1223000] = true,               -- Embrace of K'aresh (Magic)
+        [1221133] = true,               -- Hungering Rage (Enrage)
     }
 }
 
