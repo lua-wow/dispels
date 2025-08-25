@@ -170,6 +170,15 @@ local spells = {
     [960] = {
         [106113] = true             -- Touch of Nothingness
     },
+    -- Siege of Niuzao Temple
+    [1011] = {
+        [119875] = true,            -- Tempest
+    },
+    -- [959] Shado-pan Monastery
+    -- [961] Stormstout Brewery
+    -- [962] Gate of the Setting Sun
+    -- [994] Mogu'Shan Palace
+
     -- Terrace of Endless Spring
     [996] = {
         [117398] = true,            -- Lightning Prison
@@ -178,26 +187,41 @@ local spells = {
     },
     -- Mogu'shan Vaults
     [1008] = {
-        [117961] = true,            -- Impervious Shield
         [117697] = true,            -- Shield of Darkness
         [117837] = true,            -- Delirious
-        [117949] = true             -- Closed Circuit
+        [117949] = true,            -- Closed Circuit
+        [117961] = true,            -- Impervious Shield
+        [118552] = true,            -- Flesh to Stone
+
     },
     -- Heart of Fear
     [1009] = {
         [122149] = true,            -- Quickening
         [124862] = true             -- Visions of Demise
     },
+    -- Throne of Thunder
+    [1098] = {
+        -- Council of Elders
+        [136857] = true,            -- Entrapped (Magic)
+        [139205] = true,            -- Visions of Grandeur
+
+        -- Primordius
+        [136180] = true,            -- Keen Eyesight (Magic)
+        [136181] = true,            -- Impaired Eyesight (Magic)
+        [136182] = true,            -- Improved Synapses (Magic)
+        [136183] = true,            -- Dulled Synapses (Magic)
+        [136184] = true,            -- Thick Bones (Magic)
+        [136185] = true,            -- Fragile Bones (Magic)
+        [136186] = true,            -- Clear Mind (Magic)
+        [136187] = true,            -- Clouded Mind (Magic)
+
+        -- Iron Qon
+        [136615] = true,            -- Electrified (Magic + Stun)
+    },
     -- Siege of Orgrimmar
     [1136] = {
         [143791] = true             -- Corrosive Blood
     },
-    -- [959] Shado-pan Monastery
-    -- [961] Stormstout Brewery
-    -- [962] Gate of the Setting Sun
-    -- [994] Mogu'Shan Palace
-    -- [1011] Siege of Niuzao Temple
-    -- [1098] Throne of Thunder
 
     --------------------------------------------------
     -- Warlords of Draenor
