@@ -166,15 +166,19 @@ local spells = {
     --------------------------------------------------
     -- Mists of Pandaria
     --------------------------------------------------
+    -- Shado-pan Monastery
+    [959] = {
+        [113020] = true,            -- Black Cleave (Magic)
+    },
     -- Temple of the Jade Serpent
     [960] = {
         [106113] = true             -- Touch of Nothingness
     },
     -- Siege of Niuzao Temple
     [1011] = {
-        [119875] = true,            -- Tempest
+        [119875] = true,            -- Tempest (Magic)
+        [120778] = true,            -- Caustic Tar (Magic)
     },
-    -- [959] Shado-pan Monastery
     -- [961] Stormstout Brewery
     -- [962] Gate of the Setting Sun
     -- [994] Mogu'Shan Palace
@@ -350,6 +354,7 @@ local spells = {
         -- Streets of Wonder
         [347775] = true,            -- Spam Filter (Mafic)
         [349954] = true,            -- Purification Protocol
+        [351960] = true,            -- Static Cling (Magic)
         [353706] = true,            -- Rowdy (Enrage)
         [355641] = true,            -- Sintillate (Magic)
         [355888] = true,            -- Hard Light Baton (Magic)
@@ -359,7 +364,7 @@ local spells = {
         [356407] = true,            -- Ancient Dread (Curse)
         [356943] = true,            -- Lockdown (Magic)
         [357029] = true,            -- Hyperlight Bomb (Magic)
-    
+
         -- So'leash's Gambit
         [347149] = true,            -- Infinite Breath (Magic / Stun)
         [355057] = true,            -- Cry of Mrrggllrrgg (Enrage)
