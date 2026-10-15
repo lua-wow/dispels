@@ -1,0 +1,27 @@
+--------------------------------------------------
+-- The Burning Crusade
+--------------------------------------------------
+-- [269] The Black Morass
+-- [540] The Shattered Halls
+-- [542] The Blood Furnace
+-- [543] Hellfire Ramparts
+-- [545] The Steamvault
+-- [546] The Underbog
+-- [547] The Slave Pens
+-- [552] The Arcatraz
+-- [553] The Botanica
+-- [554] The Mechanar
+-- [555] Shadow Labyrinth
+-- [556] Sethekk Halls
+-- [557] Mana-Tombs
+-- [558] Auchenai Crypts
+-- [560] Old Hillsbrad Foothills
+-- [585] Magisters' Terrace
+-- [532] Karazhan
+-- [534] The Battle for Mount Hyjal
+-- [544] Magtheridon's Lair
+-- [548] Serpentshrine Cavern
+-- [550] Tempest Keep: The Eye
+-- [564] Black Temple
+-- [565] Gruul's Lair
+-- [580] Sunwell Plateau

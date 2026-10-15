@@ -1,0 +1,21 @@
+--------------------------------------------------
+-- Legion
+--------------------------------------------------
+-- [1456] Eye of Azshara
+-- [1458] Neltharion's Lair
+-- [1466] Darkheart Thicket
+-- [1477] Halls of Valor
+-- [1492] Maw of Souls
+-- [1493] Vault of the Wardens
+-- [1501] Black Rook Hold
+-- [1516] The Arcway
+-- [1544] Violet Hold
+-- [1571] Court of Stars
+-- [1651] Return to Karazhan
+-- [1677] Cathedral of Eternal Night
+-- [1753] Seat of the Triumvirate
+-- [1520] The Emerald Nightmare
+-- [1530] The Nighthold
+-- [1648] Trial of Valor
+-- [1676] Tomb of Sargeras
+-- [1712] Antorus, the Burning Throne

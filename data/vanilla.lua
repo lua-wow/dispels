@@ -1,0 +1,29 @@
+--------------------------------------------------
+-- Clasic
+--------------------------------------------------
+-- [33] Shadowfang Keep
+-- [34] The Stockade
+-- [36] The Deadmines
+-- [43] Wailing Caverns
+-- [47] Razorfen Kraul
+-- [48] Blackfathom Deeps
+-- [70] Uldaman
+-- [90] Gnomeregan
+-- [109] The Temple of Atal'Hakkar
+-- [129] Razorfen Downs
+-- [209] Zul'Farrak
+-- [229] Blackrock Spire
+-- [230] Blackrock Depths
+-- [309] Zul'Gurub
+-- [329] Stratholme
+-- [349] Maraudon
+-- [389] Ragefire Chasm
+-- [429] Dire Maul
+-- [409] Molten Core
+-- [469] Blackwing Lair
+-- [509] Ruins of Ahn'Qiraj
+-- [531] Ahn'Qiraj Temple
+-- [1001] Scarlet Halls
+-- [1004] Scarlet Monastery
+-- [1007] Scholomance
+-- [3456] Naxxramas

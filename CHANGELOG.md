@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+-   Interface for Classic Era, TBC, WotLK and MoP only (the combat log can't be read on Retail)
+-   `C_ChatInfo.SendChatMessage` instead of the deprecated global
+-   Aura data split into `data/<expansion>.lua`, loaded only on clients that have the expansion
+-   Removed client flags, Mythic+ affix auras and other dead code; added `.luacheckrc` and `make check`
+
 ## [1.1.3] - 2024-10-14
 
 ### Changed

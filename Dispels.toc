@@ -1,0 +1,16 @@
+## Interface: 11509, 20506, 38002, 50504
+## Author: Luaerror
+## Version: 1.1.4
+## Title: |cffff8000Dispels|r
+## Notes: Dispel announcer
+## IconTexture: Interface\ICONS\Spell_Holy_Dispelmagic
+
+## X-Website: https://github.com/lua-wow/dispels
+## X-Maintainer: Luaerror
+
+init.xml
+data\vanilla.lua
+data\tbc.lua [AllowLoadGameType tbc, wrath, mists]
+data\wrath.lua [AllowLoadGameType wrath, mists]
+data\cata.lua [AllowLoadGameType mists]
+data\mists.lua [AllowLoadGameType mists]

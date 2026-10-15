@@ -1,0 +1,14 @@
+--------------------------------------------------
+-- Warlords of Draenor
+--------------------------------------------------
+-- [1182] Auchindoun
+-- [1175] Bloodmaul Slag Mines
+-- [1176] Shadowmoon Burial Grounds
+-- [1195] Iron Docks
+-- [1208] Grimrail Depot
+-- [1209] Skyreach
+-- [1279] The Everbloom
+-- [1358] Upper Blackrock Spire
+-- [1205] Blackrock Foundry
+-- [1228] Highmaul
+-- [1448] Hellfire Citadel
