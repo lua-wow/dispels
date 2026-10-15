@@ -1,6 +1,6 @@
 ## Interface: 11509, 20506, 38002, 50504
 ## Author: Luaerror
-## Version: 1.1.4
+## Version: 1.2.0
 ## Title: |cffff8000Dispels|r
 ## Notes: Dispel announcer
 ## IconTexture: Interface\ICONS\Spell_Holy_Dispelmagic
